@@ -1,0 +1,25 @@
+<!-- app/views/attendances/new.html.erb -->
+
+<div class="container mx-auto mt-12 px-5">
+  <h1 class="text-2xl font-bold mb-4">New Attendance</h1>
+
+  <%= form_with(model: @attendance, url: attendances_path, local: true) do |form| %>
+    <div class="mb-4">
+      <%= form.label :user_id, class: "block text-gray-700 font-bold mb-2" do %>
+        User ID
+      <% end %>
+      <%= form.text_field :user_id, class: "block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
+    </div>
+
+    <div class="mb-4">
+      <%= form.label :event_id, class: "block text-gray-700 font-bold mb-2" do %>
+        Event ID
+      <% end %>
+      <%= form.text_field :event_id, class: "block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" %>
+    </div>
+
+    <div class="mt-6">
+      <%= form.submit "Create Attendance", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+    </div>
+  <% end %>
+</div>

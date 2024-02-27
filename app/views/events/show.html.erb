@@ -5,9 +5,17 @@
 
   <%= render @event %>
 
+  <!-- Form for attending the event -->
   <div class="mt-8">
+  <%= form_with(model: [@event, Attendance.new], url: event_attendances_path(@event), local: true) do |form| %>
+    <%= form.submit "Attend Event", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+  <% end %>
+</div>
+
+  <div class="mt-8">
+    <p class="mb-2"><strong>Creator:</strong> <%= @event.creator.email %></p>
     <%= link_to "Edit this event", edit_event_path(@event), class: "text-blue-500 font-bold mr-4" %>
     <%= link_to "Back to Events", events_path, class: "text-blue-500 font-bold mr-4" %>
-    <%= button_to "Destroy this event", @event, method: :delete, data: { confirm: "Are you sure?" }, class: "bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+    <%= button_to "Delete this event", @event, method: :delete, data: { confirm: "Are you sure?" }, class: "bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
   </div>
 </div>
