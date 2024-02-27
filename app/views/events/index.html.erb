@@ -1,11 +1,18 @@
-<!-- app/views/events/index.html.erb -->
+<!-- Header section for list of events -->
+<div class="bg-gray-200 py-8 mb-8">
+  <h1 class="text-2xl font-bold text-center">List of Events</h1>
+</div>
 
-<h1 class="text-2xl font-bold mb-4">List of Events</h1>
+<!-- Horizontal line for demarcation -->
+<hr class="border-t border-gray-300 mb-8">
 
-<% @events.each do |event| %>
-  <div class="border rounded p-4 mb-4">
-    <h2 class="text-xl font-bold"><%= event.name %></h2>
-    <p class="text-gray-600"><%= event.location %></p>
-    <p><strong>Date:</strong> <%= event.date.strftime('%B %d, %Y') %></p>
-  </div>
-<% end %>
+<!-- Body section for event details -->
+<div class="bg-white rounded-lg shadow-md p-6">
+  <% @events.each do |event| %>
+    <div id="<%= dom_id event %>" class="mb-8">
+      <p class="mb-2"><strong class="font-bold">Name:</strong> <%= event.name %></p>
+      <p class="mb-2"><strong class="font-bold">Location:</strong> <%= event.location %></p>
+      <p class="mb-2"><strong class="font-bold">Date:</strong> <%= event.date %></p>
+    </div>
+  <% end %>
+</div>

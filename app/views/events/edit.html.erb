@@ -1,10 +1,10 @@
-<h1>Editing event</h1>
+<div class="container mx-auto mt-12 px-5">
+  <h1 class="text-3xl font-bold mb-8 text-red-500">Editing Event</h1>
 
-<%= render "form", event: @event %>
+  <%= render "form", event: @event %>
 
-<br>
-
-<div>
-  <%= link_to "Show this event", @event %> |
-  <%= link_to "Back to events", events_path %>
+  <div class="mt-8">
+    <%= link_to "Show this event", @event, class: "text-blue-500 font-bold mr-4" %>
+    <%= link_to "Back to events", events_path, class: "text-blue-500 font-bold" %>
+  </div>
 </div>

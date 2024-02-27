@@ -22,8 +22,8 @@ class EventsController < ApplicationController
 
   # POST /events or /events.json
   def create
-    @event = Event.new(event_params)
-
+    @event = current_user.events.build(event_params) # Ensure current_user is set correctly
+  
     respond_to do |format|
       if @event.save
         format.html { redirect_to event_url(@event), notice: "Event was successfully created." }
@@ -34,6 +34,7 @@ class EventsController < ApplicationController
       end
     end
   end
+  
 
   # PATCH/PUT /events/1 or /events/1.json
   def update

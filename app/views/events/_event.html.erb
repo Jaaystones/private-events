@@ -1,17 +1,7 @@
-<div id="<%= dom_id event %>">
-  <p>
-    <strong>Name:</strong>
-    <%= event.name %>
-  </p>
+<div id="<%= dom_id event %>" class="bg-gray-100 rounded-lg shadow-md p-6 mb-8">
+  <p class="mb-2"><strong class="font-bold">Name:</strong> <%= event.name %></p>
 
-  <p>
-    <strong>Location:</strong>
-    <%= event.location %>
-  </p>
+  <p class="mb-2"><strong class="font-bold">Location:</strong> <%= event.location %></p>
 
-  <p>
-    <strong>Date:</strong>
-    <%= event.date %>
-  </p>
-
+  <p class="mb-2"><strong class="font-bold">Date:</strong> <%= event.date %></p>
 </div>
