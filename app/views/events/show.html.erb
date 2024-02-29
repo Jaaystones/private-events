@@ -5,12 +5,25 @@
 
   <%= render @event %>
 
+  <!-- List of attendees -->
+  <div class="mt-8">
+    <h2>Attendees</h2>
+    <% @event.attendances.each do |attendance| %>
+      <p>
+        <%= attendance.user.email %>
+        <% if current_user == attendance.user %>
+          <%= button_to "Remove Attendance", event_attendance_path(@event, attendance), method: :delete, data: { confirm: "Are you sure?" }, class: "bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline" %>
+        <% end %>
+      </p>
+    <% end %>
+  </div>
+
   <!-- Form for attending the event -->
   <div class="mt-8">
-  <%= form_with(model: [@event, Attendance.new], url: event_attendances_path(@event), local: true) do |form| %>
-    <%= form.submit "Attend Event", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
-  <% end %>
-</div>
+    <%= form_with(model: [@event, Attendance.new], url: event_attendances_path(@event), local: true) do |form| %>
+      <%= form.submit "Attend Event", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+    <% end %>
+  </div>
 
   <div class="mt-8">
     <p class="mb-2"><strong>Creator:</strong> <%= @event.creator.email %></p>

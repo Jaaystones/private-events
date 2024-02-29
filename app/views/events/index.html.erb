@@ -1,24 +1,45 @@
+<!-- events/index.html.erb -->
 <!-- Header section for list of events -->
-<div class="bg-gray-200 py-8 mb-8">
+<div class="bg-gray-200 py-8 mb-4 border-b border-gray-300">
   <h1 class="text-2xl font-bold text-center">List of Events</h1>
 </div>
 
-<!-- Horizontal line for demarcation -->
-<hr class="border-t border-gray-300 mb-8">
+<!-- Section for past events -->
+<div class="bg-white rounded-lg shadow-md p-6 border border-gray-300 mb-4">
+  <h2 class="text-xl font-bold mb-4">Past Events</h2>
+  <% @past_events.each do |event| %>
+    <div id="<%= dom_id event %>" class="mb-4 border-b border-gray-300 pb-4">
+      <p><strong class="font-bold">Name:</strong> <%= event.name %></p>
+      <p><strong class="font-bold">Location:</strong> <%= event.location %></p>
+      <p><strong class="font-bold">Date:</strong> <%= event.date %></p>
+      
+      <!-- Edit and Delete buttons for events created by the current user -->
+      <% if event.creator == current_user %>
+        <div class="flex justify-end mt-4">
+          <%= link_to 'Edit', edit_event_path(event), class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-2 rounded' %>
+          <%= link_to 'Delete', event_path(event), method: :delete, data: { confirm: 'Are you sure?' }, class: 'bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded' %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
 
-<!-- Body section for event details -->
-<div class="bg-white rounded-lg shadow-md p-6">
-  <% @events.each do |event| %>
-    <div id="<%= dom_id event %>" class="mb-8">
-      <p class="mb-2"><strong class="font-bold">Name:</strong> <%= event.name %></p>
-      <p class="mb-2"><strong class="font-bold">Location:</strong> <%= event.location %></p>
-      <p class="mb-2"><strong class="font-bold">Date:</strong> <%= event.date %></p>
+<!-- Section for upcoming events -->
+<div class="bg-white rounded-lg shadow-md p-6 border border-gray-300">
+  <h2 class="text-xl font-bold mb-4">Upcoming Events</h2>
+  <% @upcoming_events.each do |event| %>
+    <div id="<%= dom_id event %>" class="mb-4 border-b border-gray-300 pb-4">
+      <p><strong class="font-bold">Name:</strong> <%= event.name %></p>
+      <p><strong class="font-bold">Location:</strong> <%= event.location %></p>
+      <p><strong class="font-bold">Date:</strong> <%= event.date %></p>
 
-      <!-- Edit and Delete buttons -->
-      <div class="flex justify-end">
-        <%= button_to 'Edit', edit_event_path(event), method: :get, class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-2 rounded' %>
-        <%= button_to 'Delete', event_path(event), method: :delete, data: { confirm: 'Are you sure?' }, class: 'bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded' %>
-      </div>
+      <!-- Edit and Delete buttons for events created by the current user -->
+      <% if event.creator == current_user %>
+        <div class="flex justify-end mt-4">
+          <%= link_to 'Edit', edit_event_path(event), class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-2 rounded' %>
+          <%= link_to 'Delete', event_path(event), method: :delete, data: { confirm: 'Are you sure?' }, class: 'bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded' %>
+        </div>
+      <% end %>
     </div>
   <% end %>
 </div>

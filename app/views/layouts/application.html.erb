@@ -21,30 +21,27 @@
 </head>
 <body>
 <header class="bg-red-600 text-white py-4">
-    <div class="container mx-auto flex justify-between items-center px-5">
-      <h1 class="text-2xl font-bold"><a href="<%= root_path %>" class="hover:text-gray-900">Eventbites</a></h1>
-      <% if user_signed_in? %>
-        <div class="relative">
-          <button id="menuButton" class="text-white focus:outline-none">Menu</button>
-          <ul id="dropdownMenu" class="absolute right-0 hidden bg-gray-900 text-white py-2 mt-2 w-32 rounded shadow-lg">
-            <li><%= button_to "Logout", destroy_user_session_path, method: :delete, class: "block px-4 py-2 hover:bg-gray-700" %></li>
-            <li><%= button_to "Create Event", new_event_path, method: :get, class: "block px-4 py-2 hover:bg-gray-700" %></li>
-            <li><%= button_to "Profile",  edit_user_registration_path, method: :get, class: "block px-4 py-2 hover:bg-gray-700" %></li>
-          </ul>
-        </div>
-      <% else %>
-        <div class="space-x-4">
-          <%= link_to "Sign up", new_user_registration_path, class: "text-white" %>
-          <%= link_to "Sign in", new_user_session_path, class: "text-white" %>
-        </div>
-      <% end %>
-    </div>
-  </header>
+  <div class="container mx-auto flex justify-between items-center px-5">
+    <h1 class="text-2xl font-bold"><a href="<%= root_path %>" class="hover:text-gray-900">Eventbites</a></h1>
+    <nav>
+      <ul class="flex space-x-4">
+        <% if user_signed_in? %>
+          <li><%= button_to "Logout", destroy_user_session_path, method: :delete, class: "text-white" %></li>
+          <li><%= button_to "Create Event", new_event_path, method: :get, class: "text-white" %></li>
+          <li><%= button_to "Profile",  edit_user_registration_path, method: :get, class: "text-white" %></li>
+        <% else %>
+          <li><%= button_to "Sign up", new_user_registration_path, method: :get, class: "text-white" %></li>
+          <li><%= link_to "Sign in", new_user_session_path, class: "text-white" %></li>
+        <% end %>
+      </ul>
+    </nav>
+  </div>
+</header>
 
-  <main class="container mx-auto mt-12 px-5 flex">
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <%= yield %>
-  </main>
+<main class="container mx-auto mt-12 px-5 flex">
+  <p class="notice"><%= notice %></p>
+  <p class="alert"><%= alert %></p>
+  <%= yield %>
+</main>
 </body>
 </html>
