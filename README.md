@@ -1,3 +1,6 @@
+![homepage](https://github.com/Jaaystones/private-events/assets/111044396/7674c5e4-bb20-4240-8d68-1d83a757c214)
+
+
 This is the Events Management App named private-events where a user can create and attends events
 
 # User Authentication
