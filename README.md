@@ -42,12 +42,11 @@ You can be an attendee of as many events as you can
 has_many: attended_events through: :event_attendees source: : event
 has_many :event_attendee
 ```
-
-# event.rd
-
 An event has only one creator
 ```
 belongs_to :creator, class_name: 'User', foreign_key: 'creator_id'
 has_many: attendees, thought: :event_attendees, source: :attendess
 has_many: event_attendees
 ```
+# Collaborations
+Collabvorations are accepted! create a pull request. A good client side design would be perfect
