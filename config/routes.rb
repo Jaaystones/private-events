@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
   devise_for :users
-  resource :users, only: [:show]
+  resources :users, only: [:show]
   #events
   resources :events do
     resources :attendances, only: [:create, :destroy]
+    post 'invite', on: :member
   end
   root to: 'events#index'
   

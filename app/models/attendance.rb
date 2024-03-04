@@ -2,6 +2,7 @@ class Attendance < ApplicationRecord
   belongs_to :user
   belongs_to :event
 
+
   validate :user_must_exist
   validate :event_must_exist
 

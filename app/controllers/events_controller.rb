@@ -6,6 +6,8 @@ class EventsController < ApplicationController
   def index
     @past_events = Event.past
     @upcoming_events = Event.upcoming
+    @public_events = Event.where(private: false)
+    @private_events = current_user&.events&.where(private: true)
   end
 
   # GET /events/1 or /events/1.json
@@ -59,6 +61,13 @@ class EventsController < ApplicationController
     end
   end
 
+  def invite
+    @event = current_user.events.find(params[:id])
+    invited_user = User.find(params[:user_id])
+    @event.attendees << invited_user
+    redirect_to @event, notice: 'User was successfully invited to the event.'
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_event
@@ -67,6 +76,6 @@ class EventsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def event_params
-      params.require(:event).permit(:name, :location, :date)
+      params.require(:event).permit(:name, :location, :date, :private)
     end
 end

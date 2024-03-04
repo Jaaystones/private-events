@@ -26,6 +26,11 @@
     <%= form.datetime_field :date, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
   </div>
 
+  <div class="mb-4">
+    <%= form.label :private, class: "block text-gray-700 font-bold mb-2" %>
+    <%= form.check_box :private %>
+  </div>
+
   <%= form.hidden_field :user_id, value: current_user.id %>
 
   <div>

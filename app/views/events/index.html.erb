@@ -8,19 +8,21 @@
 <div class="bg-white rounded-lg shadow-md p-6 border border-gray-300 mb-4">
   <h2 class="text-xl font-bold mb-4">Past Events</h2>
   <% @past_events.each do |event| %>
-    <div id="<%= dom_id event %>" class="mb-4 border-b border-gray-300 pb-4">
-      <p><strong class="font-bold">Name:</strong> <%= event.name %></p>
-      <p><strong class="font-bold">Location:</strong> <%= event.location %></p>
-      <p><strong class="font-bold">Date:</strong> <%= event.date %></p>
-      
-      <!-- Edit and Delete buttons for events created by the current user -->
-      <% if event.creator == current_user %>
-        <div class="flex justify-end mt-4">
-          <%= link_to 'Edit', edit_event_path(event), class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-2 rounded' %>
-          <%= link_to 'Delete', event_path(event), method: :delete, data: { confirm: 'Are you sure?' }, class: 'bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded' %>
-        </div>
-      <% end %>
-    </div>
+    <% if !event.private? || (current_user && event.creator == current_user) %>
+      <div id="<%= dom_id event %>" class="mb-4 border-b border-gray-300 pb-4">
+        <p><strong class="font-bold">Name:</strong> <%= event.name %></p>
+        <p><strong class="font-bold">Location:</strong> <%= event.location %></p>
+        <p><strong class="font-bold">Date:</strong> <%= event.date %></p>
+
+        <!-- Edit and Delete buttons for events created by the current user -->
+        <% if event.creator == current_user %>
+          <div class="flex justify-end mt-4">
+            <%= link_to 'Edit', edit_event_path(event), class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-2 rounded' %>
+            <%= link_to 'Delete', event_path(event), method: :delete, data: { confirm: 'Are you sure?' }, class: 'bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded' %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
   <% end %>
 </div>
 
@@ -28,18 +30,30 @@
 <div class="bg-white rounded-lg shadow-md p-6 border border-gray-300">
   <h2 class="text-xl font-bold mb-4">Upcoming Events</h2>
   <% @upcoming_events.each do |event| %>
-    <div id="<%= dom_id event %>" class="mb-4 border-b border-gray-300 pb-4">
-      <p><strong class="font-bold">Name:</strong> <%= event.name %></p>
-      <p><strong class="font-bold">Location:</strong> <%= event.location %></p>
-      <p><strong class="font-bold">Date:</strong> <%= event.date %></p>
+    <% if !event.private? || (current_user && event.creator == current_user) %>
+      <div id="<%= dom_id event %>" class="mb-4 border-b border-gray-300 pb-4">
+        <p><strong class="font-bold">Name:</strong> <%= event.name %></p>
+        <p><strong class="font-bold">Location:</strong> <%= event.location %></p>
+        <p><strong class="font-bold">Date:</strong> <%= event.date %></p>
 
-      <!-- Edit and Delete buttons for events created by the current user -->
-      <% if event.creator == current_user %>
-        <div class="flex justify-end mt-4">
-          <%= link_to 'Edit', edit_event_path(event), class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-2 rounded' %>
-          <%= link_to 'Delete', event_path(event), method: :delete, data: { confirm: 'Are you sure?' }, class: 'bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded' %>
-        </div>
-      <% end %>
-    </div>
+        <!-- Attend or Remove Attendance button for signed-in user -->
+        <% if current_user %>
+          <% if current_user.attended_events.include?(event) %>
+            <% attendance = current_user.attendances.find_by(event_id: event.id) %>
+            <%= button_to "Remove Attendance", event_attendance_path(event, attendance), method: :delete, data: { confirm: "Are you sure?" }, class: "bg-green-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:shadow-outline" %>
+          <% else %>
+            <%= button_to 'Attend', event_attendances_path(event), class: 'bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded' %>
+          <% end %>
+        <% end %>
+
+        <!-- Edit and Delete buttons for events created by the current user -->
+        <% if event.creator == current_user %>
+          <div class="flex justify-end mt-4">
+            <%= link_to 'Edit', edit_event_path(event), class: 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-2 rounded' %>
+            <%= link_to 'Delete', event_path(event), method: :delete, data: { confirm: 'Are you sure?' }, class: 'bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded' %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
   <% end %>
 </div>

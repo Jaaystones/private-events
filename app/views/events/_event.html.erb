@@ -1,7 +1,15 @@
-<div id="<%= dom_id event %>" class="bg-gray-100 rounded-lg shadow-md p-6 mb-8">
-  <p class="mb-2"><strong class="font-bold">Name:</strong> <%= event.name %></p>
-
-  <p class="mb-2"><strong class="font-bold">Location:</strong> <%= event.location %></p>
-
-  <p class="mb-2"><strong class="font-bold">Date:</strong> <%= event.date %></p>
+<!-- app/views/events/_event.html.erb -->
+<div class="event">
+  <h2><%= event.name %></h2>
+  <p><strong>Location:</strong> <%= event.location %></p>
+  <p><strong>Date:</strong> <%= event.date %></p>
+  
+  <% if user_signed_in? %>
+    <% if event.private && current_user == event.creator %>
+      <%= form_with(url: invite_event_path(event), method: :post) do |f| %>
+        <%= f.hidden_field :user_id, value: current_user.id %>
+        <%= f.submit 'Invite User' %>
+      <% end %>
+    <% end %>
+  <% end %>
 </div>
